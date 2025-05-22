@@ -148,8 +148,8 @@ Visit:
 ## 🛣 Roadmap
 
 * [x] Dockerfile generation
-* [ ] Docker Compose file generation
-* [ ] Custom build & run command support
+* [x] Docker Compose file generation
+* [x] Custom build & run command support
 * [ ] Download button in UI
 * [ ] Private GitHub repo support via token
 
