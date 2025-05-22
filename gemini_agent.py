@@ -32,7 +32,7 @@ def extract_project_summary(project_path):
     return summary
 
 
-def generate_dockerfile_with_gemini(project_path):
+def generate_deployment_file(project_path):
     url = "https://chat.devscript.in/v1/chat/completions"
 
     project_summary = extract_project_summary(project_path)
