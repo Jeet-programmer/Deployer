@@ -34,7 +34,7 @@ def extract_project_summary(project_path):
 
 
 def generate_deployment_file(project_path, build_command=None, run_command=None, use_docker_compose=False):
-    url = "https://chat.devscript.in/v1/chat/completions"
+    url = "http://chat.devscript.in/v1/chat/completions"
 
     project_summary = extract_project_summary(project_path)
 
