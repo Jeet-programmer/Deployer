@@ -16,12 +16,13 @@ def extract_project_summary(project_path):
                     continue
                 break  # Only include one README file
 
-    # Continue with project files
+    # Include code/config files
     for root, dirs, files in os.walk(project_path):
         for file in files:
             if file.endswith((
-                '.py', '.js', '.ts', '.java', '.cpp',
-                'package.json', 'requirements.txt', 'pom.xml'
+                '.py', '.js', '.ts', '.java',
+                'package.json', 'requirements.txt',
+                'pom.xml', 'main.cpp'
             )):
                 try:
                     with open(os.path.join(root, file), 'r', errors="ignore") as f:
@@ -32,26 +33,27 @@ def extract_project_summary(project_path):
     return summary
 
 
-def generate_deployment_file(project_path):
+def generate_deployment_file(project_path, build_command=None, run_command=None, use_docker_compose=False):
     url = "https://chat.devscript.in/v1/chat/completions"
 
     project_summary = extract_project_summary(project_path)
 
     prompt = f"""
-You are a DevOps assistant. A user has submitted a project with the following file contents:
+You are a DevOps assistant. Based on the following project code, generate a production-ready {"docker-compose.yml" if use_docker_compose else "Dockerfile"}.
 
+Project Code Summary:
 {project_summary}
 
-Based on the contents above (including README if available), generate a production-ready Dockerfile that can run this application. 
-Only output the Dockerfile.
+{f"The user suggests this build command: {build_command}" if build_command else ""}
+{f"The user suggests this run command: {run_command}" if run_command else ""}
+
+Only return the complete deployment file. Do not include extra commentary.
 """
 
     body = {
         "model": "gpt-4o-mini",
         "stream": False,
-        "messages": [
-            {"role": "user", "content": prompt}
-        ]
+        "messages": [{"role": "user", "content": prompt}]
     }
 
     try:
