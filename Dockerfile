@@ -16,7 +16,7 @@ COPY . .
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Expose both FastAPI (8000) and Streamlit (8501) ports
-EXPOSE 8000
+# EXPOSE 8000
 EXPOSE 8501
 
 # Set default command to run both apps in background
