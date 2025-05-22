@@ -15,9 +15,8 @@ COPY . .
 # Install Python dependencies
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Expose both FastAPI (8000) and Streamlit (8501) ports
-# EXPOSE 8000
-EXPOSE 8501
+# Expose FastAPI on 8000 and Streamlit on 8051 (main)
+EXPOSE 8051
 
-# Set default command to run both apps in background
-CMD ["sh", "-c", "uvicorn app:app --host 0.0.0.0 --port 8000 & streamlit run main.py --server.port=8501 --server.address=0.0.0.0"]
+# Run both services; Streamlit on port 8051 (main)
+CMD ["sh", "-c", "uvicorn app:app --host 0.0.0.0 --port 8000 & streamlit run main.py --server.port=8051 --server.address=0.0.0.0"]
