@@ -11,7 +11,7 @@ use_docker_compose = st.checkbox("Generate docker-compose.yml instead of Dockerf
 if st.button("Generate"):
     if git_url:
         with st.spinner("Generating..."):
-            response = requests.post("http://localhost:8000/generate", json={
+            response = requests.post("http://localhost:8001/generate", json={
                 "git_url": git_url,
                 "build_command": build_command,
                 "run_command": run_command,
