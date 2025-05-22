@@ -68,8 +68,8 @@ COPY . .
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Expose FastAPI (8000) and Streamlit (8051)
+EXPOSE 8001
 EXPOSE 8000
-EXPOSE 8051
 
 # Launch both services, prioritize Streamlit on port 8051
 CMD ["sh", "-c", "uvicorn app:app --host 0.0.0.0 --port 8000 & streamlit run main.py --server.port=8051 --server.address=0.0.0.0"]
